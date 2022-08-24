@@ -1,9 +1,13 @@
 import {Injectable} from "@angular/core";
 import {Config, Editor} from "./interfaces";
+import {StyleTools} from "../engine";
 
 @Injectable()
 export class EditorState extends Editor{
-    constructor(private config: Config) {
+    private stylesProcessor = this.styleTools.getStylesProcessor()
+
+    constructor(private config: Config, private styleTools: StyleTools) {
         super();
+        console.log(this.stylesProcessor)
     }
 }
