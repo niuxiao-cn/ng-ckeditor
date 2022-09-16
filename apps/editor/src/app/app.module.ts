@@ -3,10 +3,11 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import {DocumentEditorModule} from "@ng-editor/ngck/document-editor";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, DocumentEditorModule],
+  imports: [BrowserModule, DocumentEditorModule, FormsModule],
   providers: [],
   bootstrap: [AppComponent],
 })

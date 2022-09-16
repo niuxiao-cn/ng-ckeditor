@@ -1,16 +1,13 @@
 import {NgModule} from "@angular/core";
-import {DocTools, MatchTools, StyleTools} from "./interfaces";
-import {StyleToolsService} from "./style-tools.service";
-import {DocToolsService} from "./doc-tools.service";
-import {MatchToolsService} from "./match-tools.service";
+import {Tools} from "./api/tools";
+import {ToolsService} from "./tools.service";
+import {DataProcessorService} from "./data-processor.service";
+import {DomFiltersService} from "./dom-filters.service";
+import {ConverterService} from "./converter";
 
 @NgModule({
     providers: [{
-        provide: StyleTools, useClass: StyleToolsService
-    }, {
-        provide: MatchTools, useClass: MatchToolsService
-    }, {
-        provide: DocTools, useClass: DocToolsService
-    }]
+        provide: Tools, useClass: ToolsService
+    }, DataProcessorService, DomFiltersService, ConverterService]
 })
 export class EngineModule {}

@@ -1,10 +1,23 @@
-<div class="document-editor__toolbar" >toolbar</div>
-<div class="document-editor__editable-container" >
-    <div
-        class="document-editor__editable ck ck-content ck-editor__editable ck-rounded-corners ck-editor__editable_inline"
-        contenteditable="true"
-        role="textbook"
-        aria-label="rich editor"
-        ngckForce
-    ></div>
+<div class="document-editor__toolbar ck-reset_all" >
+    <div class="document-editor__toolbar_items" >
+        <ngck-heading [value]="(parentType$ | async) ?? ''" ></ngck-heading>
+        <span class="document-editor__toolbar_separator" ></span>
+    </div>
 </div>
+
+<div class="document-editor__editable-container" >
+    <div ngckEditor [editor]="editor"></div>
+</div>
+
+<ng-container *ngIf="tips$ | async as tips" >
+    <div
+        class="ck ck-balloon-panel ck-balloon-panel_arrow_n ck-balloon-panel_with-allow document-editor__tooltip"
+        [style.top]="tipTop$ | async"
+        [style.left]="tipLeft$ | async"
+        *ngIf="tips.length > 0"
+    >
+        <div class="tip-content" #tipContent >
+            <div class="tip-item" *ngFor="let tip of tips; let index = index" [class.active]="index === (tipIndex$ | async)" >{{tip}}</div>
+        </div>
+    </div>
+</ng-container>

@@ -4,7 +4,7 @@
     "prefix": "ng-editor",
     "targets": {
         "build": {
-            "executor": "@angular-devkit/build-angular:browser",
+            "executor": "@angular-builders/custom-webpack:browser",
             "outputs": ["{options.outputPath}"],
             "options": {
                 "outputPath": "dist/apps/editor",
@@ -18,7 +18,11 @@
                     "apps/editor/src/assets"
                 ],
                 "styles": ["apps/editor/src/styles.less"],
-                "scripts": []
+                "scripts": [],
+                "customWebpackConfig": {
+                    "path": "apps/editor/config.js"
+                },
+                "webWorkerTsConfig": "apps/editor/tsconfig.worker.json"
             },
             "configurations": {
                 "production": {
@@ -54,7 +58,7 @@
             "defaultConfiguration": "production"
         },
         "serve": {
-            "executor": "@angular-devkit/build-angular:dev-server",
+            "executor": "@angular-builders/custom-webpack:dev-server",
             "options": {
                 "port": 8090
             },
@@ -88,7 +92,8 @@
             "outputs": ["coverage/apps/editor"],
             "options": {
                 "jestConfig": "apps/editor/jest.config.ts",
-                "passWithNoTests": true
+                "passWithNoTests": true,
+                "webWorkerTsConfig": "apps/editor/tsconfig.worker.json"
             }
         }
     },

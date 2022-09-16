@@ -1,0 +1,6 @@
+<div (mousedown)="handleToggle($event)">
+    <ng-content></ng-content>
+</div>
+<div *ngIf="visible$ | async" class="ck ck-balloon-panel ck-balloon-panel_arrow_nw ck-balloon-panel_with-allow content" >
+    <ng-container *ngTemplateOutlet="content" ></ng-container>
+</div>

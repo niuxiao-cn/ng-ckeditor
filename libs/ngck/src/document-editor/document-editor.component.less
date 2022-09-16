@@ -4,6 +4,7 @@
     display: flex;
     flex-flow: column nowrap;
     --ck-color-editable-blur-selection: hsl(0, 0%, 85%);
+    position: relative;
     .document-editor__toolbar {
         z-index: 1;
         box-shadow: 0 0 5px hsla( 0,0%,0%,.2 );
@@ -12,39 +13,83 @@
             border: 0;
             border-radius: 0;
         }
+        .document-editor__toolbar_items {
+            margin-right: var(--ck-spacing-small);
+            flex-wrap: nowrap;
+            display: flex;
+            flex-flow: row wrap;
+            flex-grow: 1;
+        }
+        .document-editor__toolbar_separator {
+            align-self: stretch;
+            background: var(--ck-color-toolbar-border);
+            margin-bottom: var(--ck-spacing-small);
+            margin-top: var(--ck-spacing-small);
+            min-width: 1px;
+            width: 1px;
+            display: inline-block;
+            margin-right: var(--ck-spacing-small);
+        }
     }
     .document-editor__editable-container {
         padding: calc( 2 * var(--ck-spacing-large) );
         background: var(--ck-color-base-foreground);
         overflow-y: scroll;
-        .ck.ck-editor__editable_inline {
+        ::ng-deep {
+            .ck.ck-editor__editable_inline {
+                overflow: auto;
+                padding: 0 var(--ck-spacing-standard);
+                border: 1px solid transparent;
+                & > *:first-child {
+                   margin-top: var(--ck-spacing-large);
+                }
+                & > *:last-child {
+                    margin-bottom: var(--ck-spacing-large);
+                }
+                &.ck-blurred ::selection {
+                    background: var(--ck-color-editable-blur-selection);
+                }
+            }
+            .document-editor__editable.ck-editor__editable {
+                width: 15.8cm;
+                min-height: 21cm;
+                padding: 1cm 2cm 2cm;
+                border: 1px hsl( 0,0%,88.7% ) solid;
+                border-radius: calc(2 * var(--ck-border-radius));
+                background: white;
+                box-shadow: 0 0 5px hsla( 0,0%,0%,.1 );
+                margin: 0 auto;
+            }
+            .ck.ck-editor__editable:not(.ck-editor__nested-editable) {
+                &.ck-focused {
+                    outline: none;
+                    border: var(--ck-focus-ring);
+                    box-shadow: var(--ck-inner-shadow), 0 0;
+                }
+            }
+        }
+    }
+    .document-editor__tooltip {
+        position: fixed;
+        width: 400px;
+        top: 100px;
+        left: 0;
+        .tip-content {
+            max-height: 200px;
             overflow: auto;
-            padding: 0 var(--ck-spacing-standard);
-            border: 1px solid transparent;
-            & > *:first-child {
-               margin-top: var(--ck-spacing-large);
-            }
-            & > *:last-child {
-                margin-bottom: var(--ck-spacing-large);
-            }
-            &.ck-blurred ::selection {
-                background: var(--ck-color-editable-blur-selection);
-            }
-        }
-        .document-editor__editable.ck-editor__editable {
-            width: 15.8cm;
-            min-height: 21cm;
-            padding: 1cm 2cm 2cm;
-            border: 1px hsl( 0,0%,88.7% ) solid;
-            border-radius: calc(2 * var(--ck-border-radius));
-            background: white;
-            box-shadow: 0 0 5px hsla( 0,0%,0%,.1 );
-            margin: 0 auto;
-        }
-        .ck.ck-editor__editable:not(.ck-editor__nested-editable) {
-            &.ck-focused {
-                outline: none;
-                border: var(--ck-focus-ring)
+            padding: 4px;
+            .tip-item {
+                font-size: 13px;
+                color: #333;
+                border-bottom: 1px dashed #ddd;
+                padding: 8px;
+                &.active {
+                    background-color: #f4f6f8;
+                }
+                &:last-child {
+                    border-bottom: 0 none;
+                    padding-bottom: 0;
+                }
             }
         }
     }

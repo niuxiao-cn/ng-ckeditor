@@ -1,0 +1,33 @@
+:host {
+    display: inline-block;
+    .title {
+        margin: var(--ck-spacing-small);
+        .label {
+            width: 10em;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+        .ck-dropdown__arrow {
+            width: var(--ck-dropdown-arrow-size);
+            margin-left: var(--ck-spacing-standard);
+            right: var(--ck-spacing-standard);
+            pointer-events: none;
+            z-index: var(--ck-z-default);
+        }
+    }
+    .option-content {
+        padding: 4px 0;
+        * {
+            padding: 4px 8px;
+            margin: 0;
+            cursor: pointer;
+            &:hover {
+                background-color: var(--ck-color-list-button-hover-background);
+            }
+            &.active {
+                background-color: var(--ck-color-list-button-on-background);
+                color: var(--ck-color-list-button-on-text);
+            }
+        }
+    }
+}

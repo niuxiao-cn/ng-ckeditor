@@ -1,38 +1,34 @@
 import {RxState} from "@rx-angular/state";
+import {Command, EditorState, Plugin} from "prosemirror-state";
+import {Node} from "prosemirror-model"
+import {InjectionToken} from "@angular/core";
 
-export type EditorConfig = {
-    wordCount?: WordCount | undefined
+export const PLUGIN = new InjectionToken<Plugin>("EditorPlugins");
+
+export type CommandQuery = URLSearchParams;
+
+export interface CommandItem {
+    name: string,
+    command(query?: CommandQuery): Command
 }
 
-export type WordCount = {
-    container: HTMLElement
-    displayCharacters?: boolean | undefined
-    displayWords?: boolean | undefined
+export const COMMAND = new InjectionToken<CommandItem>('Command Item');
+
+export abstract class Editor extends RxState<{
+    replaceNode: Node,
+    value: string,
+    selectionParent: Node,
+    execCommands: string[],
+    valueTxt: string,
+    tips: string[],
+    selectionPosition: {left: number, top: number, right: number, bottom: number},
+    tipIndex: number
+}>{
+    abstract state: EditorState
 }
 
-export abstract class Config extends RxState<Record<string, unknown>> {
-    abstract setConfig( name: string, value: unknown ): void
-    abstract setConfig( config: Record<string, unknown> ): void
-    abstract setConfig(name: string | Record<string, unknown>, value?: unknown): void
-
-    abstract define(name: string, value: unknown): void
-    abstract define(config: Record<string, unknown>): void
-    abstract define(name: string | Record<string, unknown>, value?: unknown): void
-
-    abstract getConfig(name: string): unknown
-
-    abstract names(): Iterable<string>
+export interface CommandManage {
+    exec(name: string, query?: CommandQuery): Command | undefined
+    getKey(name: string, query: Record<string, string | number>): string
+    parseKey(key: string): {name: string, query: CommandQuery}
 }
-
-export abstract class Editor extends RxState<{ state: string }>{
-}
-
-export abstract class EditorUI extends RxState<{
-    rootName: string,
-    viewportOffset: {
-        top: number, right: number, bottom: number, left: number
-    },
-    editing: {
-        view: unknown
-    }
-}> {}

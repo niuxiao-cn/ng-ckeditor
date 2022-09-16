@@ -1,1 +1,5 @@
-<ngck-doc-editor></ngck-doc-editor>
+<ngck-doc-editor
+    [(ngModel)]="value"
+    [tips]="tips"
+    (textChange)="handleChangeText($event)"
+></ngck-doc-editor>

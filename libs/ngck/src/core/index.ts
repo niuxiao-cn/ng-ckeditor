@@ -1,4 +1,4 @@
 export * from "./core.module"
 export * from "./interfaces"
 export * from "./editor.state"
-export * from "./config.state"
+export * from "./command.service";

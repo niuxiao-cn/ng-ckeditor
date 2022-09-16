@@ -1,0 +1,22 @@
+<ngck-dropdown [(visible)]="visible" class="title" [content]="content" >
+    <button class="ck ck-button ck-button_with-text ck-dropdown__button" type="button" tabindex="-1" [class.ck-on]="visible" [class.ck-off]="!visible" >
+        <ng-container *ngIf="title$ | async as title; else placeholder" >
+            <span class="ck ck-button__label label" >{{title | ngckUpperCaseFirst}}</span>
+        </ng-container>
+        <ng-template #placeholder>
+            <span class="ck ck-button__label placeholder label" >Choose Heading</span>
+        </ng-template>
+        <svg class="ck ck-icon ck-dropdown__arrow" viewBox="0 0 10 10">
+            <path d="M.941 4.523a.75.75 0 1 1 1.06-1.06l3.006 3.005 3.005-3.005a.75.75 0 1 1 1.06 1.06l-3.549 3.55a.75.75 0 0 1-1.168-.136L.941 4.523z"></path>
+        </svg>
+    </button>
+</ngck-dropdown>
+
+<ng-template #content>
+    <div class="option-content ck-reset_all-excluded">
+        <p [class.active]="(title$ | async) === 'paragraph'" (click)="handleChangeType('heading')" >Paragraph</p>
+        <h3 [class.active]="(title$ | async) === 'heading 3'" (click)="handleChangeType('heading', 3)" >Heading 3</h3>
+        <h2 [class.active]="(title$ | async) === 'heading 2'" (click)="handleChangeType('heading', 2)">Heading 2</h2>
+        <h1 [class.active]="(title$ | async) === 'heading 1'" (click)="handleChangeType('heading', 1)">Heading 1</h1>
+    </div>
+</ng-template>
